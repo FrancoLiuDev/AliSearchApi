@@ -8,7 +8,8 @@ var cors = require('cors');
 
 
 //var routes = require('./routes/index');
-var searchItems = require('./routes/srchitem');
+//var searchItems = require('./routes/srchitem');
+var apiLteration = require('./routes/apiLterationAlpha');
 var app = express();
 
 app.use(cors());
@@ -26,8 +27,9 @@ app.use(function (req, res, next) {
 });
 
 //app.use('/', routes);
-app.use('/searchItems', searchItems);
+app.use('/api/v1', apiLteration);
 
+//app.use('/v1', apiLterationAlpha);
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
