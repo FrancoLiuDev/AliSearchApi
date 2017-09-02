@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
-
 //var routes = require('./routes/index');
 //var searchItems = require('./routes/srchitem');
 var apiLteration = require('./routes/apiLterationAlpha');
@@ -14,6 +13,10 @@ var app = express();
 
 app.use(cors());
 app.use(logger('dev'));
+app.use(bodyParser.urlencoded({
+    extended: true,
+    limit: '1mb'
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

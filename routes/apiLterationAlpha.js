@@ -1,25 +1,35 @@
 var express = require('express');
 var router = express.Router();
 var dbAliResult = require('../models/aliTask');
+
+var bodyParser = require('body-parser');
+app = express()
+
 /*
  * GET userlist.
  */
-router.get('/searchitems', function (req, res) {
 
-    dbAliResult.getSearchResult(function (err, rows) {
+
+router.post('/searchitems', function (req, res) {
+    console.log(req.headers);
+    console.log(req.body);
+    var query = req.body.query
+
+    console.log('query', query)
+    dbAliResult.getSearchResult(query, function (err, rows) {
 
         if (err) {
             res.json(err);
         }
         else {
-
+            //SELECT COUNT(*) AS RecordCount FROM searchbyitem; Select * from searchbyitem;
             var result = {
                 data: {
                     count: rows[0][0].RecordCount,
                     rows: rows[1],
                 }
             }
-            console.log(result)
+            //console.log(result)
             res.json(result);
         }
 

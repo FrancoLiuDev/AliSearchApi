@@ -3,12 +3,12 @@ var db = require('../dbconnection');
 
 var dbSearchResult = {
 
-    getSearchResult: function (callback) {
+    getSearchResult: function (query, callback) {
 
         //"SELECT COUNT(*) FROM searchbyitem; Select * from searchbyitem;"
 
-        return db.query("SELECT COUNT(*) AS RecordCount FROM searchbyitem; Select * from searchbyitem;", callback);
-
+        return db.query(query, callback);
+        //SELECT COUNT(*) AS RecordCount FROM searchbyitem; Select * from searchbyitem;
     },
 
 };
