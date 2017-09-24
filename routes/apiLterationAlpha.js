@@ -22,17 +22,53 @@ router.post('/searchitems', function (req, res) {
             res.json(err);
         }
         else {
-            //SELECT COUNT(*) AS RecordCount FROM searchbyitem; Select * from searchbyitem;
             var result = {
                 data: {
                     count: rows[0][0].RecordCount,
                     rows: rows[1],
                 }
             }
-            //console.log(result)
             res.json(result);
         }
 
+    });
+
+});
+
+
+router.put('/addQueryProvier', function (req, res) {
+    console.log(req.headers);
+    console.log(req.body);
+    var idlist = req.body.data
+
+    console.log('idlist', idlist)
+    dbAliResult.putQueryProvider(idlist, function (err, rows) {
+
+        if (err) {
+            res.sendStatus(400)
+        }
+        else {
+            res.sendStatus(201)
+        }
+    });
+
+});
+
+
+router.put('/addFavOfferIds', function (req, res) {
+    console.log(req.headers);
+    console.log(req.body);
+    var idlist = req.body.data
+
+    console.log('idlist', idlist)
+    dbAliResult.putFavOffer(idlist, function (err, rows) {
+
+        if (err) {
+            res.sendStatus(400)
+        }
+        else {
+            res.sendStatus(201)
+        }
     });
 
 });

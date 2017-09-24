@@ -6,7 +6,8 @@ var connection = mysql.createPool({
     host: 'localhost',
     port: '3306',
     user: 'root',
-    password: '123qweASD',
+    //password: '123qweASD',
+    password: '123456',
     database: 'alibaba'
 });
 module.exports = connection;
