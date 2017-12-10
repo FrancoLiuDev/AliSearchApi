@@ -10,13 +10,13 @@ app = express()
  */
 
 //取得搜尋結果
-router.post('/searchitems', function (req, res) {
+router.post('/searchitems/:key', function (req, res) {
     console.log(req.headers);
     console.log(req.body);
     var query = req.body.query
-
+    var key = req.params.key;
     console.log('query', query)
-    dbAliResult.getSearchResult(query, function (err, rows) {
+    dbAliResult.getSearchResult(key, query, function (err, rows) {
         if (err) {
             res.json(err);
         }
@@ -35,10 +35,11 @@ router.post('/searchitems', function (req, res) {
 });
 
 //增加商品廠商到(查詢廠商清單)
-router.put('/addQueryProvier', function (req, res) {
+router.put('/addQueryProvier/:key', function (req, res) {
     var idlist = req.body.data
     console.log('idlist', idlist)
-    dbAliResult.putQueryProvider(idlist, function (err, rows) {
+    var key = req.params.key;
+    dbAliResult.putQueryProvider(key, idlist, function (err, rows) {
 
         if (err) {
             res.sendStatus(400)
@@ -50,17 +51,39 @@ router.put('/addQueryProvier', function (req, res) {
 
 });
 
-//新增廠fav_company (廠商清單)
-router.put('/addFavOfferIds', function (req, res) {
+//新增商品到我的最愛清單 (廠商清單)
+router.put('/addFavOfferIds/:key', function (req, res) {
     var idlist = req.body.data
+    var key = req.params.key;
     console.log('idlist', idlist)
-    dbAliResult.putFavOffer(idlist, function (err, rows) {
+    dbAliResult.putFavOffer(key, idlist, function (err, rows) {
 
         if (err) {
             res.sendStatus(400)
         }
         else {
             res.sendStatus(201)
+        }
+    });
+
+});
+
+
+//取得我的最愛清單 (廠商清單)
+router.get('/FavOfferIds', function (req, res) {
+
+    dbAliResult.getFavOffer(function (err, rows) {
+        if (err) {
+            res.json(err);
+        }
+        else {
+            var result = {
+                data: {
+                    count: rows[0][0].RecordCount,
+                    rows: rows[1],
+                }
+            }
+            res.json(result);
         }
     });
 
@@ -168,6 +191,23 @@ router.get('/favprovider/:id', function (req, res) {
     });
 });
 
+
+//取得單比(商品細節)
+router.get('/offerdetail/:id', function (req, res) {
+    var id = req.params.id;
+
+    dbAliResult.getOfferItemDetail(id, function (err, rows) {
+        if (err) {
+            res.sendStatus(400)
+        }
+        else {
+            var result = {
+                data: rows[0]
+            }
+            res.json(result);
+        }
+    });
+});
 
 
 
