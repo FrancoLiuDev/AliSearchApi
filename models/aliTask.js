@@ -43,6 +43,17 @@ var dbSearchResult = {
 		//console.log('query', query)
 		return db.query(query, callback)
 	},
+	putQueryOffer: function(offerId, callback) {
+		var query =
+			"INSERT INTO  alibaba.query_likes (offerId)" +
+			" VALUES ('" +
+			offerId +
+			"')"
+		;(" ON DUPLICATE KEY UPDATE offerId = VALUES(offerId)")
+
+		return db.query(query, callback)
+	},
+
 	putFavOffer: function(searchkey, offerid, callback) {
 		var idstr = ""
 		for (idx in offerid) {
@@ -170,6 +181,11 @@ var dbSearchResult = {
 	getOfferItemDetail: function(id, callback) {
 		var querywhere = "where offer_id = '" + id + "'"
 		var query = "SELECT * FROM alibaba.fav_offer_items " + querywhere + ";"
+		return db.query(query, callback)
+	},
+	getOfferDetailList: function(callback) {
+		var query =
+			"SELECT COUNT(*) AS RecordCount FROM alibaba.fav_offer_items ; SELECT * FROM alibaba.fav_offer_items ;"
 		return db.query(query, callback)
 	}
 }
