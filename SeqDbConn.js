@@ -1,11 +1,9 @@
 const Sequelize = require("sequelize")
 let msproductDb = null
 
-function createDbConn() {
-	console.log("create db conn")
-	msproductDb = require("mysql")
-
-	const sequelize = new Sequelize("alibaba", "root", "123456", {
+const createDbConn = function() {
+	console.log("msproductDb", msproductDb)
+	const sequelize = new Sequelize("dd_product", "root", "123456", {
 		host: "localhost",
 		dialect: "mysql", //choose anyone between them
 
@@ -25,10 +23,27 @@ function createDbConn() {
 		.catch(err => {
 			console.log("Unable to connect to the database:", err)
 		})
+	return sequelize
+}
+msproductDb = createDbConn()
+console.log("sequelize", msproductDb)
+
+class SeqDatabaseConfig {
+	constructor() {
+		this._productSequelize = msproductDb
+	}
+	get productSequelize() {
+		return this._productSequelize
+	}
+	static configFactory() {
+		return new SeqDatabaseConfig()
+	}
 }
 
-if (!msproductDb) {
-	createDbConn()
+class SeqDatabase {
+	static seqConfig() {
+		return SeqDatabaseConfig.configFactory()
+	}
 }
 
-exports.msproductDb = msproductDb
+module.exports = SeqDatabase

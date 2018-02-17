@@ -20,6 +20,7 @@
 		"mysql2": "^1.5.2",
 		"sequelize": "^4.33.4",
 		"serve-favicon": "~2.3.2",
+		"sync-promise": "^1.1.0",
 		"uuid": "^3.1.0"
 	}
 }
