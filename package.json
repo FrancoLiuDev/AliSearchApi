@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
-		"start": "node ./test/promiseSequelize",
+		"start": "set DB_IPADDR=localhost&&node ./bin/www",
 		"default": "node ./bin/www"
 	},
 	"dependencies": {
@@ -19,6 +19,7 @@
 		"mysql": "^2.14.1",
 		"mysql2": "^1.5.2",
 		"sequelize": "^4.33.4",
+		"sequelize-to-json": "^0.10.3",
 		"serve-favicon": "~2.3.2",
 		"sync-promise": "^1.1.0",
 		"uuid": "^3.1.0"
