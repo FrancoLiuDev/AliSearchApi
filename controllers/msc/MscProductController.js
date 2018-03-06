@@ -14,4 +14,5 @@ class MscProductController extends MscController {
 	}
 }
 
+
 module.exports = MscProductController
